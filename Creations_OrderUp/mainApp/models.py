@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+
+class Order(models.Model):
+    orderId = models.BigAutoField(primary_key=True)
+    orderNumber = models.IntegerField()
+    startTime = models.DateTimeField(auto_now=True)
+    #isComplete = models.BooleanField(auto_created=False)
