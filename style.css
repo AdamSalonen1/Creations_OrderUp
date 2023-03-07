@@ -2,3 +2,8 @@
     height: 200px;
     width: auto;
 }
+
+#MainTable{
+    border-style: dotted;
+    border-color: black;
+}
