@@ -26,10 +26,23 @@
 
       <div class="row justify-content-md-center">
         <table id="MainTable" class="table">
+          {%if Order%}
           <tr>
-            <th>Hello World!</th>
+            <th>OrderId</th>
+            <th>OrderNumber</th>
+            <th>StartTime</th>
           </tr>
+          {%for o in Order%}
+          <tr>
+            <td>{{o.orderId}}</td>
+            <td>{{o.orderNumber}}</td>
+            <td>{{o.startTime}}</td>
+          </tr>
+          {%endfor%}
         </table>
+        {%else%}
+        <p>No Records<p>
+          {%endif%}
       </div>
 
       <div class="row">
