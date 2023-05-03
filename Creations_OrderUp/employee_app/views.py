@@ -16,11 +16,13 @@ def index(request):
     meal1 = Meal.objects.get(meal_id=1)
     if request.method == 'POST':
         # print(request.POST.get('number'))
+        # print(request.POST.get('meal_name'))
         print(request.POST.get('meal_name'))
+        selectedMeal = Meal.objects.get(meal_name=request.POST.get('meal_name').__str__())
 
         order=Order()
         order.order_number = request.POST.get('number')
-        order.start_time = '2023-01-01 00:00'
+        order.start_time = datetime.now.strftime("%Y-%m-%d %H:%M")
         order.est_end_time = '2023-01-01 00:00'
         order.meal_id = meal1
         order.save()
