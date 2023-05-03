@@ -7,9 +7,11 @@ from django.utils.translation import gettext_lazy as _
 class Meal(models.Model):
     class MealType(models.TextChoices):
         # [examples, need to fill]
-        MAC_AND_CHEESE = "MAC", _("Mac and Cheese")
+        MAC_AND_CHEESE = "MAC", _("Mac & Cheese")
         PIZZA = "PIZ", _("Pizza")
         PASTA = "PAS", _("Pasta")
+        NACHO = "NAC", _("Nacho")
+        SUBS = "SUB", _("Sub Sandwich")
     
     # Fields
     meal_id = models.BigAutoField(primary_key=True)
