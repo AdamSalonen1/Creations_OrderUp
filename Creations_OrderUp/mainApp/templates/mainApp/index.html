@@ -1,4 +1,5 @@
 {% load static %}
+<script src="{% static '/mainApp/js/main.js' %}"></script>
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,6 +15,7 @@
   </head>
   <body>
     <!-- Optional JavaScript -->
+   
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -26,23 +28,32 @@
 
       <div class="row justify-content-md-center">
         <table id="MainTable" class="table">
-          {%if Order%}
-          <tr>
-            <th>OrderId</th>
-            <th>OrderNumber</th>
-            <th>StartTime</th>
-          </tr>
-          {%for o in Order%}
-          <tr>
-            <td>{{o.orderId}}</td>
-            <td>{{o.orderNumber}}</td>
-            <td>{{o.startTime}}</td>
-          </tr>
-          {%endfor%}
-        </table>
-        {%else%}
-        <p>No Records<p>
-          {%endif%}
+          // Use the functions in your template to display the remaining time and progress bar
+          {% if Order %}
+            <table>
+              <tr>
+                <th>OrderNumber</th>
+                <th>Progress    </th>
+                <th>Remaining Time</th>
+              </tr>
+              {% for o in Order %}
+                {% if not o.isComplete %}
+                  <tr>
+                    <td>{{ o.orderNumber }}</td>
+                    {% comment %} <td>{{ getRemainingTime(o.startTime, o.endTime) }}</td> {% endcomment %}
+                    <td>
+                      <div class="progress">
+                        {% comment %} <div class="progress-bar" id="myProgressBar" role="progressbar" style="width: {{ getProgressPercentage(o.startTime, o.endTime) }}%;" aria-valuenow="{{ getProgressPercentage(o.startTime, o.endTime) }}" aria-valuemin="0" aria-valuemax="100">{{ getProgressPercentage(o.startTime, o.endTime) }}%</div> {% endcomment %}
+                      </div>
+                    </td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </table>
+          {% else %}
+            <p>No Records<p>
+          {% endif %}
+
       </div>
 
       <div class="row">
