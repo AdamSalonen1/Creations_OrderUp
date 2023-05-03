@@ -20,7 +20,7 @@ class Meal(models.Model):
     cook_time = models.DateTimeField()
 
     def __str__ (self):
-        return self.meal_id
+        return self.meal_id.__str__()
     
     # Note: meal_name field has two parts, value and human-readable value. A method for human readable value is auto created by django
     # E.g. A meal is created with name "meal" as a Meal object with meal_name = MAC 
@@ -36,4 +36,4 @@ class Order(models.Model):
     meal_id = models.ForeignKey(Meal, on_delete=models.CASCADE)
 
     def __str__ (self):
-        return self.order_id
+        return self.order_id.__str__()
