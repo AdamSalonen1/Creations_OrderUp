@@ -1,9 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
    
-# Note: Meals are children of Orders. Meals can be thouht of as the actual dish that is served for an Order.
-
-
 class Meal(models.Model):
     class MealType(models.TextChoices):
         # [examples, need to fill]
@@ -19,10 +16,10 @@ class Meal(models.Model):
         max_length=3,
         choices=MealType.choices,
     )
-    cook_time = models.DateTimeField()
+    cook_time = models.IntegerField()
 
     def __str__ (self):
-        return self.meal_id.__str__()
+        return self.meal_name.__str__()
     
     # Note: meal_name field has two parts, value and human-readable value. A method for human readable value is auto created by django
     # E.g. A meal is created with name "meal" as a Meal object with meal_name = MAC 
@@ -35,7 +32,7 @@ class Order(models.Model):
     start_time = models.DateTimeField(auto_now=True)
     est_end_time = models.DateTimeField()
     is_complete = models.BooleanField(default=False)
-    meal_id = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    meal = models.ForeignKey(Meal, on_delete=models.RESTRICT)
 
     def __str__ (self):
         return self.order_id.__str__()
