@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from mainApp import views
+from employee_app import views as empViews
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', views.index, name='index'),
     path('advertisements/', views.advertisements, name='advertisements'),
+    path('employee/', empViews.index, name='employee')
 
 ]
