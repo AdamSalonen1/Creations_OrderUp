@@ -34,7 +34,7 @@
                       {% for o in Order %}
                         {% if not o.isComplete %}
                           <tr>
-                            <td>{{ o.orderNumber }}</td>
+                            <td>{{ o.orer_number }}</td>
                             {% comment %} <td>{{ getRemainingTime(o.startTime, o.endTime) }}</td> {% endcomment %}
                             <td>
                               <div class="progress">
@@ -74,11 +74,11 @@
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('number').value=document.getElementById('number').value.slice(0, -1);">&lt;</button>
                     <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('number').value=document.getElementById('number').value + '0';">0</button>
-                    <button type="button" class="btn btn-primary py-3" onclick="submit()">Enter</button>
+                    <input type="submit" value="   Enter    ">
                 </div>
             </div>
             <div class="btn-group">
-                <input type="submit" value="Submit!!">
+                
             </div>
           </form>
         </body>
