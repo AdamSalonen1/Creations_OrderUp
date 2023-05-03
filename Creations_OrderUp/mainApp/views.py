@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from mainApp.models import Order
+# from mainApp.models import Order
+from EmployeeApp.models import Order
+from EmployeeApp.models import MealType
 
 def index(request):
     full_order_list = Order.objects.order_by('orderId')
