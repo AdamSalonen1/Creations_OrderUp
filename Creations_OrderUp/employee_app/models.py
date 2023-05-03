@@ -11,7 +11,7 @@ class Meal(models.Model):
         PIZZA = "PIZ", _("Pizza")
         PASTA = "PAS", _("Pasta")
         NACHO = "NAC", _("Nacho")
-        SUBS = "SUB", _("Sub Sandwhich")
+        SUBS = "SUB", _("Sub Sandwich")
     
     # Fields
     meal_id = models.BigAutoField(primary_key=True)
