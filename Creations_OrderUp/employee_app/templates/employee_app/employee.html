@@ -21,6 +21,7 @@
             <div class="row">
                 <img id="NDSU_logo" src="{%static 'mainApp/images/NDSU_logo.png'%}" alt="NDSU_logo">
             </div>
+                        
             <div class="row justify-content-md-center">
                 <table id="MainTable" class="table">
                   // Use the functions in your template to display the remaining time and progress bar
@@ -52,6 +53,9 @@
             </div>
         <form action="" method="post">
           {% csrf_token %}
+
+          {{form.as_p}}
+
             <div class="btn-group-vertical ml-4 mt-4" role="group" aria-label="Basic example">
                 <div class="btn-group">
                     <input type="text" id="number" name="number"><br><br>
