@@ -15,7 +15,8 @@ def index(request):
     meal_list = Meal.objects.order_by('meal_id')
     meal1 = Meal.objects.get(meal_id=1)
     if request.method == 'POST':
-        print(request.POST.get('number'))
+        # print(request.POST.get('number'))
+        print(request.POST.get('meal_name'))
 
         order=Order()
         order.order_number = request.POST.get('number')
