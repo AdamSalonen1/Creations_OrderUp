@@ -39,11 +39,11 @@
               {% for o in Order %}
                 {% if not o.isComplete %}
                   <tr>
-                    <td>{{ o.orderNumber }}</td>
-                    {% comment %} <td>{{ getRemainingTime(o.startTime, o.endTime) }}</td> {% endcomment %}
+                    <td>{{ o.order_number }}</td>
+                    <td id="timeLeft">getRemainingTime({{o.est_end_time}})</td>
                     <td>
                       <div class="progress">
-                        {% comment %} <div class="progress-bar" id="myProgressBar" role="progressbar" style="width: {{ getProgressPercentage(o.startTime, o.endTime) }}%;" aria-valuenow="{{ getProgressPercentage(o.startTime, o.endTime) }}" aria-valuemin="0" aria-valuemax="100">{{ getProgressPercentage(o.startTime, o.endTime) }}%</div> {% endcomment %}
+                        <div class="progress-bar" id="myProgressBar" role="progressbar" style="width: getProgressPercentage({{o.start_time}}, {{o.est_end_time}}) ;" aria-valuenow="getProgressPercentage({{o.start_time}}, {{o.est_end_time}})" aria-valuemin="0" aria-valuemax="100"> getProgressPercentage({{o.start_time}}, {{o.est_end_time}})</div>
                       </div>
                     </td>
                   </tr>
@@ -67,4 +67,24 @@
 
 </body> 
 
+<script>
+  function getRemainingTime(endTime) {
+    const remainingTimeMs = endTime.getTime() - new Date().getTime();
+    const remainingTimeSeconds = Math.floor(remainingTimeMs / 1000);
+    const remainingDays = Math.floor(remainingTimeSeconds / (24 * 60 * 60));
+    const remainingHours = Math.floor((remainingTimeSeconds % (24 * 60 * 60)) / (60 * 60));
+    const remainingMinutes = Math.floor((remainingTimeSeconds % (60 * 60)) / 60);
+    const remainingSeconds = Math.floor(remainingTimeSeconds % 60);
+    var statement ='${remainingMinutes}:${remainingSeconds}';
+    document.getELementById('timeLeft').innerHTML = statement;
+    
+  }
+
+  function getProgressPercentage(startTime, endTime) {
+    const totalTimeMs = endTime.getTime() - startTime.getTime();
+    const elapsedTimeMs = new Date().getTime() - startTime.getTime();
+    return Math.floor((elapsedTimeMs / totalTimeMs) * 100);
+  }
+</script>
 </html>
+
