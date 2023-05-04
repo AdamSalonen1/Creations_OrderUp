@@ -29,7 +29,7 @@ class Meal(models.Model):
 class Order(models.Model):
     order_id = models.BigAutoField(primary_key=True)
     order_number = models.IntegerField()
-    start_time = models.DateTimeField(auto_now=True)
+    start_time = models.DateTimeField()
     est_end_time = models.DateTimeField()
     is_complete = models.BooleanField(default=False)
     meal = models.ForeignKey(Meal, on_delete=models.RESTRICT)
