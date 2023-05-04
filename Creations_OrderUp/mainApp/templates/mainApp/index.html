@@ -44,8 +44,7 @@
                     <td id="timeLeft{{o.order_id}}"></td>
                     <td>
                       <div class="progress">
-                        {% comment %} <div class="progress-bar" id="myProgressBar" role="progressbar" style="width: getProgressPercentage({{o.start_time}}, {{o.est_end_time}}) ;" aria-valuenow="getProgressPercentage({{o.start_time}}, {{o.est_end_time}})" aria-valuemin="0" aria-valuemax="100"> getProgressPercentage({{o.start_time}}, {{o.est_end_time}})</div> {% endcomment %}
-                      </div>
+                        <div class="progress-bar" id="myProgressBar{{o.order_id}}" role="progressbar" style="width: 100;" aria-valuemin="0" aria-valuemax="100">                      </div>
                     </td>
                   </tr>
 
@@ -78,13 +77,20 @@
                     document.getElementById("timeLeft{{o.order_id}}").innerHTML = timeRemaining{{o.order_id}}(order{{o.order_id}}.end_time) + ' seconds';
                   }
 
-                  updateTimer{{o.order_id}}(); // update the timer immediately
-                  setInterval(function() {updateTimer{{o.order_id}}()}, 1000); // update the timer every second
-
-                  function progress(total, elapsed) {
-                    statment = (total / elapsed) * 100;
-                    return statement;
+                  function updateProgressBar{{o.order_id}}(endTime, totalTime) {
+                    percent = ((endTime - (Date.now() - 18000000)) / totalTime) * 100;
+                    var theBar{{o.order_id}} = document.getElementById("myProgressBar{{o.order_id}}");
+                    theBar{{o.order_id}}.setAttribute(("width"), percent);
                   }
+                  
+                  function updateAll{{o.order_id}}() {
+                    updateTimer{{o.order_id}}();                    
+                    updateProgressBar{{o.order_id}}(order{{o.order_id}}.end_time, order{{o.order_id}}.total_time);
+                  }
+
+                  updateAll{{o.order_id}}(); // update the timer immediately
+                  setInterval(function() {updateAll{{o.order_id}}()}, 1000); // update the timer every second
+
                   {% endif %}
                 </script>
               {% endfor %}
