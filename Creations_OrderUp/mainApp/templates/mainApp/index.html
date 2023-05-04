@@ -28,7 +28,6 @@
 
       <div class="row justify-content-md-center">
         <table id="MainTable" class="table">
-          // Use the functions in your template to display the remaining time and progress bar
           {% if Order %}
             <table>
               <tr>
@@ -38,9 +37,58 @@
               </tr>
               {% for o in Order %}
                 {% if not o.isComplete %}
+                <script>
+                  var order = {
+                    start_time: new Date('{{ o.start_time }}'),
+                    est_end_time: new Date('{{ o.est_end_time }}'),
+                    total_time: '{{o.meal.cook_time}}',
+                    elapsed_time: 0
+                  };
+                  {% comment %} order.total_time = order.est_end_time - order.start_time; {% endcomment %}
+                  order.elapsed_time = Date.now().getTime() - order.start_time.getTime();
+                  
+                  function timeLeft(total, elapsed) {
+                    var remainingTimeMs = total - elapsed;
+                    var remainingSeconds = Math.floor(remainingTimeMs / 1000);
+                    var remainingMinutes = Math.floor(remainingSeconds / 60);
+                    var remainingHours = Math.floor(remainingMinutes / 60);
+                    var remainingDays = Math.floor(remainingHours / 24);
+            
+                    // format the remaining time as "D days H hours M minutes"
+                    var remainingTimeString = "";
+                    if (remainingDays > 0) {
+                      remainingTimeString += remainingDays + " days ";
+                    }
+                    if (remainingHours > 0) {
+                      remainingTimeString += remainingHours % 24 + " hours ";
+                    }
+                    if (remainingMinutes > 0) {
+                      remainingTimeString += remainingMinutes % 60 + " minutes ";
+                    }
+                    if (remainingSeconds > 0) {
+                      remainingTimeString += remainingSeconds % 60 + " seconds";
+                    }
+            
+                    return remainingTimeString;
+                  }
+
+                  function updateTimer() {
+                    document.getElementById("timeLeft").innerHTML = timeLeft(order.total_time, order.elapsed_time);
+                  }
+
+                  updateTimer(); // update the timer immediately
+                  setInterval(updateTimer, 1000); // update the timer every second
+
+                  function progress(total, elapsed) {
+                    statment = (total / elapsed) * 100;
+                    return statement;
+                  }
+
+                
+                </script>
                   <tr>
                     <td>{{ o.order_number }}</td>
-                    <td id="timeLeft">getRemainingTime({{o.est_end_time}})</td>
+                    <td id="timeLeft"></td>
                     <td>
                       <div class="progress">
                         <div class="progress-bar" id="myProgressBar" role="progressbar" style="width: getProgressPercentage({{o.start_time}}, {{o.est_end_time}}) ;" aria-valuenow="getProgressPercentage({{o.start_time}}, {{o.est_end_time}})" aria-valuemin="0" aria-valuemax="100"> getProgressPercentage({{o.start_time}}, {{o.est_end_time}})</div>
@@ -68,22 +116,25 @@
 </body> 
 
 <script>
-  function getRemainingTime(endTime) {
-    const remainingTimeMs = endTime.getTime() - new Date().getTime();
-    const remainingTimeSeconds = Math.floor(remainingTimeMs / 1000);
-    const remainingDays = Math.floor(remainingTimeSeconds / (24 * 60 * 60));
-    const remainingHours = Math.floor((remainingTimeSeconds % (24 * 60 * 60)) / (60 * 60));
-    const remainingMinutes = Math.floor((remainingTimeSeconds % (60 * 60)) / 60);
-    const remainingSeconds = Math.floor(remainingTimeSeconds % 60);
-    var statement ='${remainingMinutes}:${remainingSeconds}';
-    document.getELementById('timeLeft').innerHTML = statement;
-    
+  function convertToMin(time) {
+     {% comment %} timeMs = time.getTime();
+     remainingTimeSeconds = Math.floor(timeMs/ 1000);
+     remainingDays = Math.floor(remainingTimeSeconds / (24 * 60 * 60));
+     remainingHours = Math.floor((remainingTimeSeconds % (24 * 60 * 60)) / (60 * 60));
+     remainingMinutes = Math.floor((remainingTimeSeconds % (60 * 60)) / 60);
+     remainingSeconds = Math.floor(remainingTimeSeconds % 60); {% endcomment %}
+    document.getElementById("timeLeft").innerHTML =  "hello";//remainingMinutes + ":" + remainingSeconds;
   }
+
 
   function getProgressPercentage(startTime, endTime) {
     const totalTimeMs = endTime.getTime() - startTime.getTime();
     const elapsedTimeMs = new Date().getTime() - startTime.getTime();
     return Math.floor((elapsedTimeMs / totalTimeMs) * 100);
+  }
+
+  function updateTimeElapsed(time) {
+    return time.getTime() + 1000;
   }
 </script>
 </html>
