@@ -41,11 +41,11 @@
                 
                   <tr>
                     <td>{{ o.order_number }}</td>
-                    <td id="timeLeft{{o.order_id}}"></td>
                     <td>
                       <div class="progress">
-                        <div class="progress-bar" id="myProgressBar{{o.order_id}}" role="progressbar" style="width: 100;" aria-valuemin="0" aria-valuemax="100">                      </div>
+                        <div class="progress-bar" id="myProgressBar{{o.order_id}}" role="progressbar" style="width: 100%;" aria-valuemin="0" aria-valuemax="100">                      </div>
                     </td>
+                    <td id="timeLeft{{o.order_id}}"></td>
                   </tr>
 
                 <script>
@@ -57,7 +57,6 @@
                 
                 function timeRemaining{{o.order_id}}(endTime){
                     remainingTime = endTime - (Date.now() - 18000000);
-                    console.log({{o.isComplete}});
                     remainingSeconds = Math.floor(remainingTime / 1000);
                     if(remainingSeconds <= 0 ){
                       csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -78,10 +77,12 @@
                   }
 
                   function updateProgressBar{{o.order_id}}(endTime, totalTime) {
-                    percent = ((endTime - (Date.now() - 18000000)) / totalTime) * 100;
-                    var theBar{{o.order_id}} = document.getElementById("myProgressBar{{o.order_id}}");
-                    theBar{{o.order_id}}.setAttribute(("width"), percent);
-                  }
+                    var percent = Math.floor((endTime - (Date.now() - 18000000)) / totalTime) * 100;
+                    var theBar = document.getElementById("myProgressBar{{o.order_id}}");
+                    var newWidth = percent + "%";
+                    theBar.style.width = newWidth;
+                }
+                
                   
                   function updateAll{{o.order_id}}() {
                     updateTimer{{o.order_id}}();                    

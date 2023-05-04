@@ -1,11 +1,15 @@
-#NDSU_logo{
+#NDSU_logo {
     float: left;
     height: 200px;
     width: auto;
     border-radius: 20px;
 }
 
-#MainTable{
+#MainTable {
     border-style: dotted;
     border-color: black;
+}
+
+progress {
+    style="width: 100%;"
 }
