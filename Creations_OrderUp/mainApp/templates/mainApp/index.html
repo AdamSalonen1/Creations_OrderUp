@@ -40,7 +40,7 @@
                 
                   <tr>
                     <td>{{ o.order_number }}</td>
-                    <td id="timeLeft"></td>
+                    <td id="timeLeft{{o.order_id}}"></td>
                     <td>
                       <div class="progress">
                         {% comment %} <div class="progress-bar" id="myProgressBar" role="progressbar" style="width: getProgressPercentage({{o.start_time}}, {{o.est_end_time}}) ;" aria-valuenow="getProgressPercentage({{o.start_time}}, {{o.est_end_time}})" aria-valuemin="0" aria-valuemax="100"> getProgressPercentage({{o.start_time}}, {{o.est_end_time}})</div> {% endcomment %}
@@ -57,18 +57,18 @@
                 
                 
                 function timeRemaining(totalTime, startTime){
-                    elapseTime = Date.now() - startTime;
+                    elapseTime = Date.now()- startTime;
 
                     remainingTime = totalTime - elapseTime;
                     remainingSeconds = Math.floor(remainingTime / 1000);
                     return remainingSeconds + 'seconds'
                 }
                   function updateTimer() {
-                    document.getElementById("timeLeft").innerHTML = timeRemaining(order.total_time, order.start_time);
+                    document.getElementById("timeLeft{{o.order_id}}").innerHTML = timeRemaining(order.total_time, order.start_time);
                   }
 
                   updateTimer(); // update the timer immediately
-                  setInterval(updateTimer(), 1000); // update the timer every second
+                  setInterval(function() {Math.random()}, 1000); // update the timer every second
 
                   function progress(total, elapsed) {
                     statment = (total / elapsed) * 100;
