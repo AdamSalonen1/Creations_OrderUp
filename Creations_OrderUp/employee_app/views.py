@@ -9,12 +9,15 @@ from .forms import MealForm
 
 
 def index(request):
-    form = MealForm
+    lastMeal = '---------'
+    if 'lastMeal' in request.GET:
+        lastMeal = request.GET.get('lastMeal').__str__()
 
+    form = MealForm(initial={'meal_name' : lastMeal})
 
     full_order_list = Order.objects.order_by('order_id')
     meal_list = Meal.objects.order_by('meal_name')
-    if request.method == 'POST':        
+    if request.method == 'POST':  
         selectedMeal = Meal.objects.get(meal_name=request.POST.get('meal_name').__str__())
         now = datetime.now()
         order=Order()
@@ -23,6 +26,8 @@ def index(request):
         order.est_end_time = (now + timedelta(seconds=selectedMeal.cook_time)).strftime("%Y-%m-%d %H:%M")
         order.meal = selectedMeal
         order.save()
+
+        return HttpResponseRedirect('/employee?lastMeal={0}'.format(request.POST.get('meal_name').__str__()))
 
     return render(request, 'employee_app/employee.html', context = {'Order': full_order_list, 'Meal': meal_list, 'form':form})
 
