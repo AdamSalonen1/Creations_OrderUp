@@ -86,16 +86,71 @@
                   }
 
                 
-                </script>
                   <tr>
                     <td>{{ o.order_number }}</td>
                     <td id="timeLeft" ></td>
                     <td>
                       <div class="progress">
-                        <div class="progress-bar" id="myProgressBar" role="progressbar" style="width: getProgressPercentage({{o.start_time}}, {{o.est_end_time}}) ;" aria-valuenow="getProgressPercentage({{o.start_time}}, {{o.est_end_time}})" aria-valuemin="0" aria-valuemax="100"> getProgressPercentage({{o.start_time}}, {{o.est_end_time}})</div>
+                        {% comment %} <div class="progress-bar" id="myProgressBar" role="progressbar" style="width: getProgressPercentage({{o.start_time}}, {{o.est_end_time}}) ;" aria-valuenow="getProgressPercentage({{o.start_time}}, {{o.est_end_time}})" aria-valuemin="0" aria-valuemax="100"> getProgressPercentage({{o.start_time}}, {{o.est_end_time}})</div> {% endcomment %}
                       </div>
                     </td>
                   </tr>
+                  <script>
+                    var order = {
+                      start_time: Date.parse('{{ o.start_time }}'),
+                      est_end_time: Date.parse('{{ o.est_end_time }}'),
+                      total_time: 0,
+                      elapsed_time: 0
+                    };
+                    
+                    console.log(order.start_time.toString());
+  
+                    order.total_time = '{{o.meal.cook_time}}';
+                    order.total_time *= 1000;
+  
+                    var current = Date.now();
+                    const currentDate = new Date(current);
+                    const startDate = new Date(order.start_time);
+                    order.elapsed_time = currentDate.getTime() - startDate.getTime();
+                    
+                    function timeLeft(total, elapsed) {
+                      var remainingTimeMs = total - elapsed;
+                      var remainingSeconds = Math.floor(remainingTimeMs / 1000);
+                      var remainingMinutes = Math.floor(remainingSeconds / 60);
+                      var remainingHours = Math.floor(remainingMinutes / 60);
+                      var remainingDays = Math.floor(remainingHours / 24);
+              
+                      // format the remaining time as "D days H hours M minutes"
+                      var remainingTimeString = "";
+                      if (remainingDays > 0) {
+                        remainingTimeString += (remainingDays + " days ");
+                      }
+                      if (remainingHours > 0) {
+                        remainingTimeString += (remainingHours % 24 + " hours ");
+                      }
+                      if (remainingMinutes > 0) {
+                        remainingTimeString += (remainingMinutes % 60 + " minutes ");
+                      }
+                      if (remainingSeconds > 0) {
+                        remainingTimeString += (remainingSeconds % 60 + " seconds");
+                      }
+                      console.log(remainingTimeString);
+                      return remainingTimeString;
+                    }
+  
+                    function updateTimer() {
+                      document.getElementById("timeLeft").innerHTML = timeLeft(order.total_time, order.elapsed_time);
+                    }
+                    updateTimer(); // update the timer immediately
+                    setInterval(updateTimer(), 1000); // update the timer every second
+  
+                    function progress(total, elapsed) {
+                      statement = (total / elapsed) * 100;
+                      return statement;
+                    }
+  
+                  
+                  </script>
                 {% endif %}
               {% endfor %}
             </table>
@@ -109,6 +164,7 @@
         <p>
           <a href="{%url 'advertisements'%}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View Data</a>
           <a href="http://127.0.0.1:8000/admin/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">To Admin Site</a>
+          <a href="http://127.0.0.1:8000/employee/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">To Employee Site</a>
         </p>
       </div>
 

@@ -85,5 +85,12 @@
                 
             </div>
           </form>
+          {%if hasError%}
+          <div class="alert" style="background-color: red;">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>ERROR</strong> YOU MUST ENTER AN ORDER NUMBER
+          </div>
+          {%endif%}
+
         </body>
 </html>

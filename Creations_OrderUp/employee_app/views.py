@@ -10,24 +10,32 @@ from .forms import MealForm
 
 def index(request):
     lastMeal = '---------'
-    if 'lastMeal' in request.GET:
-        lastMeal = request.GET.get('lastMeal').__str__()
+    hasError = False
+    if 'hasError' in request.GET:
+        hasError = True
 
-    form = MealForm(initial={'meal_name' : lastMeal})
+    try:
+        if 'lastMeal' in request.GET:
+            lastMeal = request.GET.get('lastMeal').__str__()
 
-    full_order_list = Order.objects.order_by('order_id')
-    meal_list = Meal.objects.order_by('meal_name')
-    if request.method == 'POST':  
-        selectedMeal = Meal.objects.get(meal_name=request.POST.get('meal_name').__str__())
-        now = datetime.now()
-        order=Order()
-        order.order_number = request.POST.get('number')
-        order.start_time = now.strftime("%Y-%m-%d %H:%M")
-        order.est_end_time = (now + timedelta(seconds=selectedMeal.cook_time)).strftime("%Y-%m-%d %H:%M")
-        order.meal = selectedMeal
-        order.save()
+        form = MealForm(initial={'meal_name' : lastMeal})
 
-        return HttpResponseRedirect('/employee?lastMeal={0}'.format(request.POST.get('meal_name').__str__()))
+        full_order_list = Order.objects.order_by('order_id')
+        meal_list = Meal.objects.order_by('meal_name')
+        if request.method == 'POST':  
+            selectedMeal = Meal.objects.get(meal_name=request.POST.get('meal_name').__str__())
+            now = datetime.now()
+            order=Order()
+            order.order_number = request.POST.get('number')
+            order.start_time = now.strftime("%Y-%m-%d %H:%M")
+            order.est_end_time = (now + timedelta(seconds=selectedMeal.cook_time)).strftime("%Y-%m-%d %H:%M")
+            order.meal = selectedMeal
+            order.save()
 
-    return render(request, 'employee_app/employee.html', context = {'Order': full_order_list, 'Meal': meal_list, 'form':form})
+            return HttpResponseRedirect('/employee?lastMeal={0}'.format(request.POST.get('meal_name').__str__()))
+        
+    except:
+        return HttpResponseRedirect('/employee?hasError=True')
+
+    return render(request, 'employee_app/employee.html', context = {'Order': full_order_list, 'Meal': meal_list, 'form':form, 'hasError':hasError})
 
