@@ -91,6 +91,14 @@
                     var theBar = document.getElementById("myProgressBar{{o.order_id}}");
                     var newWidth = percent + "%";
                     theBar.style.width = newWidth;
+
+                    var progressBarText = document.getElementById("myProgressBarText{{o.order_id}}");
+                    if (!progressBarText) {
+                        progressBarText = document.createElement("span");
+                        progressBarText.id = "myProgressBarText{{o.order_id}}";
+                        theBar.parentNode.insertBefore(progressBarText, theBar.nextSibling);
+                    }
+                    progressBarText.innerHTML = percent + "%";
                 }
                 
                   
