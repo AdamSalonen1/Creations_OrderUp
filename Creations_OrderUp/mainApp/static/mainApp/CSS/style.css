@@ -10,6 +10,27 @@
     border-color: black;
 }
 
-progress {
-    style="width: 100%;"
+body {
+    font-size: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    table-layout: fixed;
+    /* added to ensure uniform column widths */
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid black;
+    width: 20%;
+    /* Set the column width to 20% */
+}
+
+th {
+    background-color: #ccc;
 }
