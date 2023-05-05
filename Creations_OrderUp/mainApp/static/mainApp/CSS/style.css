@@ -8,8 +8,11 @@
 #MainTable {
     border-style: dotted;
     border-color: black;
+    padding: 200px;
+    color: red;
+    text-align: center;
 }
 
 progress {
-    style="width: 100%;"
+    width: 100%;
 }

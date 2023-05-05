@@ -54,7 +54,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('number').value=document.getElementById('number').value.slice(0, -1);">&lt;</button>
                         <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('number').value=document.getElementById('number').value + '0';">0</button>
-                        <input type="submit" value="   Enter    ">
+                        <input type="submit" value="   Enter    " class="btn-start">
                     </div>
                 </div>
           </form>
@@ -64,5 +64,21 @@
             <strong>ERROR</strong> YOU MUST ENTER AN ORDER NUMBER
           </div>
           {%endif%}
+          <script>
+            const btnStart = document.querySelector(".btn-start");
+            const csfr = document.querySelector("[name=csrfmiddlewaretoken]").value;
+            btnStart.addEventListener("click", () => {
+              fetch('http://127.0.0.1:8000/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json; charset=UTF-8',
+                  'X-CSRFToken': csfr
+                },
+                body: JSON.stringify({'order_id': 1})
+              });
+            });
+
+            console.log("working...")
+          </script>
         </body>
 </html>
