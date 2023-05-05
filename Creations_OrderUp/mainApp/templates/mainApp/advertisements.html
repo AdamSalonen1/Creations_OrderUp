@@ -16,5 +16,24 @@
     <p>
         <a href="{%url 'index'%}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back to Main</a>
       </p>
+      {% for o in Order %}
+              {% csrf_token %}
+                {% if not o.isComplete %}
+                <script>
+                  function loadMain() {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.body.innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", "{% url 'index' %}", true);
+                    xhttp.send();
+                }
+                setInterval(loadAd(), 10000);
+                </script>
+                {%endif%}
+                {%endfor%}
+      
 </body>
 </html>

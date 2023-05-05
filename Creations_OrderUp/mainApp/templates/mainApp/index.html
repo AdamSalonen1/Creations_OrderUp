@@ -115,9 +115,18 @@
               {% endfor %}
             </table>
           {% else %}
-            <p>No Records<p>
               <script>
-
+                function loadAd() {
+                  var xhttp = new XMLHttpRequest();
+                  xhttp.onreadystatechange = function() {
+                      if (this.readyState == 4 && this.status == 200) {
+                          document.body.innerHTML = this.responseText;
+                      }
+                  };
+                  xhttp.open("GET", "{% url 'advertisements' %}", true);
+                  xhttp.send();
+              }
+              
               </script>
           {% endif %}
 
