@@ -51,14 +51,12 @@
                 <script>
                   var order{{o.order_id}} = {
                     start_time: new Date('{{o.start_time.isoformat}}').getTime(),
-                    total_time: new Date('{{o.meal.cook_time}}'),
+                    total_time: {{o.meal.cook_time}},
                     end_time: new Date('{{o.est_end_time.isoformat}}').getTime()
                 }
                 
+                
                 function timeRemaining{{o.order_id}}(endTime){
-                    console.log("now....." + (Date.now() - 18000000) );
-                    console.log("top....." + (endTime));
-
                     remainingTime = endTime - (Date.now() - 18000000);
                     remainingSeconds = Math.floor(remainingTime / 1000);
                     if(remainingSeconds <= 0 ){
@@ -81,12 +79,15 @@
                   }
 
                   function updateProgressBar{{o.order_id}}(endTime, totalTime) {
-                    //console.log("now....." + (Date.now() - 18000000) );
-                    //console.log("top....." + (endTime));
-                    //console.log("bottom.." + totalTime.getTime());
-                    //console.log("percent...."  + (((endTime * 1000) - (Date.now() - 18000000)) / totalTime));
+                    totalTime *= 1000;
+                    console.log("order number-----" + {{o.order_id}});
+                    console.log("end time-----" + endTime );
+                    console.log("now----" + (Date.now() - 18000000));
+                    console.log("top----" + (endTime - (Date.now() - 18000000)));
+                    console.log("bottom-------" + totalTime);
+                    console.log("percent------"  + (Math.floor(((endTime - (Date.now()- 18000000))  / (totalTime))) * 100));
                     
-                    var percent = Math.floor(((endTime *1000) - (Date.now() - 18000000))  / totalTime) * 100;
+                    var percent = Math.floor(((endTime - (Date.now()- 18000000))  / (totalTime)) * 100);
                     var theBar = document.getElementById("myProgressBar{{o.order_id}}");
                     var newWidth = percent + "%";
                     theBar.style.width = newWidth;
