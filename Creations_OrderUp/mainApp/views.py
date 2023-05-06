@@ -27,4 +27,5 @@ def index(request):
            
 
 def advertisements(request):
-    return render(request, 'mainApp/advertisements.html')
+    full_order_list = Order.objects.filter(is_complete = False)
+    return render(request, 'mainApp/advertisements.html', context = {'Order':full_order_list})
