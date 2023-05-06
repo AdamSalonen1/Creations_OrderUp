@@ -70,19 +70,22 @@
                 <strong>ERROR</strong> YOU MUST ENTER AN ORDER NUMBER
               </div>
             {%endif%}
-            {% comment %} <form action="" method="post" id="complete"> 
+            <form action="" method="post" id="complete"> 
+              {% csrf_token %}
               <label for="orders">Choose an order:</label>
               <select name="orders" id="orders">
                 {%for o in Order%}
+                  
                   {% if not o.isComplete %}
-                  <option value=o.order_number></option>
-              </select>
-              <br><br>
-              <input type="submit" value="Submit">
-            </form>  {% endcomment %}
-              
-            
+                  <option value={{o.order_id}}>{{o.order_number}}</option>
+                  {% endif %}
 
+                {% endfor %}
+                </select>
+              <br><br>
+              <input type = "hidden" id="meal" name="meal" value="">
+              <input type="submit" onclick="mealName()" name="Complete" value="Remove">
+            </form>
           </div>
           
           <script>
@@ -100,6 +103,11 @@
             });
 
             console.log("working...")
+            
+            function mealName(){
+              document.getElementById("meal").value = document.getElementById("id_meal_name").value
+              console.log("yay")
+            }
           </script>
   </body>
 </html>
