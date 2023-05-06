@@ -24,7 +24,8 @@
     <div class="container text-center">
         <div class="row align-items-center justify-content-center">
           <div class="col">
-            {% include 'mainApp/index.html' %}
+            {% include 'mainApp/index.html'%}
+            {% comment %} <iframe src='{%url 'index'%}' ></iframe> {% endcomment %}
           </div>
           <div class="col-md-auto">
             <form action="" method="post" id="form">
@@ -54,7 +55,8 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('number').value=document.getElementById('number').value.slice(0, -1);">&lt;</button>
                         <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('number').value=document.getElementById('number').value + '0';">0</button>
-                        <input type="submit" value="   Enter    " class="btn-start">
+                        <button type="submit" class="btn btn-outline-secondary py-3" >Enter</button>
+                        {% comment %} <input type="submit" value=" Enter " class="btn-start"> {% endcomment %}
                     </div>
                 </div>
           </form>
