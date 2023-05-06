@@ -20,10 +20,10 @@
   </head>
   <body>
     {% comment %} <img id="advert" src={%static 'mainApp/images/b596f869ab2c23ded48a377e3ba083a4-4009428628'%} alt="advert"> {% endcomment %}
-    <div  id="1" display:none ><img src={%static 'mainApp/images/1b19b6bd-d53c-43ba-9558-daeed08510cd_1920x1080.jpg'%}> </div>
-    <div  id="2" display:none> <img src={%static 'mainApp/images/43e4dfad3b2bf1c9a2f3cb9c620ffe05.jpg'%}> </p>
-    <div  id="3" display:none> <img src={%static 'mainApp/images/4057da90-09a4-4036-ac3c-19eab178b470_1920x1080.jpg'%}> </p>
-    <div id="counter" value="2" display:none> </div>
+    <div  id="1"  ><img src={%static 'mainApp/images/1b19b6bd-d53c-43ba-9558-daeed08510cd_1920x1080.jpg'%}> </div>
+    <div  id="2" hidden> <img src={%static 'mainApp/images/43e4dfad3b2bf1c9a2f3cb9c620ffe05.jpg'%}> </p> </div>
+    <div  id="3" hidden> <img src={%static 'mainApp/images/4057da90-09a4-4036-ac3c-19eab178b470_1920x1080.jpg'%}> </p> </div>
+    <p id="counter" hidden>2</p>
 
       {% for o in Order %}
               {% csrf_token %}
@@ -44,8 +44,6 @@
                 </script>
                 {%endif%}
                 {%endfor%}
-      
-</body>
 <script>
   var one = document.getElementById("1");
   var two = document.getElementById("2");
@@ -53,34 +51,30 @@
 
   function changeImg()
   {
-    console.log("string...." + document.getElementById("counter").value);
-    var int = parseInt(document.getElementById("counter").value);
+    console.log("string...." + document.getElementById("counter").innerText);
+    var int = parseInt(document.getElementById("counter").innerText);
     console.log("int...." + int);
     switch(int) {
       case 1: 
-      one.style.display = "block";
-      two.style.display = "none";
-      three.style.display = "none";
-      document.getElementById("counter").value = 2;
+      document.getElementById("1").hidden = false
+      document.getElementById("3").hidden = true
+      document.getElementById("counter").innerText = "2";
       break;
       case 2: 
-      one.style.display = "none";
-      two.style.display = "block";
-      three.style.display = "none";
-      document.getElementById("counter").value = 3;
+      document.getElementById("2").hidden = false
+      document.getElementById("1").hidden = true
+      document.getElementById("counter").innerText = "3";
       break;
       case 3: 
-      one.style.display = "none";
-      two.style.display = "none";
-      three.style.display = "block";
-      document.getElementById("counter").value = 1;
+      document.getElementById("3").hidden = false
+      document.getElementById("2").hidden = true
+      document.getElementById("counter").innerText = "1";
       break;
     }
-    
-
-    
-  
   }
-  setInterval(function(){changeImg()}, 1000)
+  setInterval(function(){changeImg()}, 15000)
 </script>
+
+      
+</body>
 </html>
