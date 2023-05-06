@@ -3,6 +3,7 @@
     height: 200px;
     width: auto;
     border-radius: 20px;
+    align-items: center;
 }
 
 #MainTable {
@@ -60,4 +61,13 @@ th {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#border{
+    border-style: solid;
+    border-color: green;
+    padding: 20px;
+    margin-top: 20px;
+    border-width: 20px;
+    border-radius: 10px;
 }

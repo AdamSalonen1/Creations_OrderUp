@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from employee_app.models import Order
 from employee_app.models import Meal
@@ -26,17 +25,13 @@ def index(request):
         if request.method == 'POST': 
             print(request.POST.get('orders'))
             if request.POST.get('Complete')=='Remove':
-                print("thank god")
                 complete_Order = Order.objects.get(order_number = request.POST.get('orders'))
-                print("got complete order")
                 complete_Order.is_complete = True
-                print("iscomplete = true")
                 complete_Order.save()
-                print("order saved")
+                
                 return HttpResponseRedirect('/employee?lastMeal={0}'.format(request.POST.get('meal').__str__()))
             
             else:
-                print("NOOOOOOO")
                 selectedMeal = Meal.objects.get(meal_name=request.POST.get('meal_name').__str__())
                 now = datetime.now()
                 order=Order()
