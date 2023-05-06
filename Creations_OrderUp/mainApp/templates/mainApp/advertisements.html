@@ -30,11 +30,19 @@
                     xhttp.open("GET", "{% url 'index' %}", true);
                     xhttp.send();
                 }
-                
+                loadMain()
                 
                 </script>
                 {%endif%}
-                {%endfor%}
+        {%endfor%}
+        <script>
+        function refreshPage(){
+          console.log("refreshing");
+          location.reload();
+        }
+
+        setInterval(function() {refreshPage()}, 10000);
+      </script>
       
-</body>
+  </body>
 </html>
