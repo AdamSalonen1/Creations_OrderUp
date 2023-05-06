@@ -77,7 +77,7 @@
                 {%for o in Order%}
                   
                   {% if not o.isComplete %}
-                  <option value={{o.order_number}}>{{o.order_number}}</option>
+                  <option value={{o.order_id}}>{{o.order_number}}</option>
                   {% endif %}
 
                 {% endfor %}

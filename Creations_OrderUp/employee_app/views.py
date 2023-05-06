@@ -25,7 +25,7 @@ def index(request):
         if request.method == 'POST': 
             print(request.POST.get('orders'))
             if request.POST.get('Complete')=='Remove':
-                complete_Order = Order.objects.get(order_number = request.POST.get('orders'))
+                complete_Order = Order.objects.get(order_id = request.POST.get('orders'))
                 complete_Order.is_complete = True
                 complete_Order.save()
                 
