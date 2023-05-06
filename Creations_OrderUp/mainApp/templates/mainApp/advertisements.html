@@ -12,10 +12,7 @@
     <link rel="stylesheet" href={%static 'mainApp/CSS/advertisementsStyle.css'%}>
   </head>
   <body>
-    <img id="mcdonalds" src={%static 'mainApp/images/b596f869ab2c23ded48a377e3ba083a4-4009428628'%} alt="mcdonalds">
-    <p>
-        <a href="{%url 'index'%}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Back to Main</a>
-      </p>
+    <img id="mcdonalds" src={%static 'mainApp/images/desktop-wallpaper-mcdonalds-ads-and-delicious-for-windows-7-mcdonalds.jpg'%} alt="mcdonalds" style="width:100%; height:100%;">
       {% for o in Order %}
               {% csrf_token %}
                 {% if not o.isComplete %}
