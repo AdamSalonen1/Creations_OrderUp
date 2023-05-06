@@ -12,6 +12,7 @@
 
     <title>RDC Creations</title>
     <link href="{% static 'mainApp/CSS/style.css'%}" rel="stylesheet">
+    
   </head>
   <body>
     <!-- Optional JavaScript -->
@@ -33,7 +34,7 @@
               <tr>
                 <th>OrderNumber</th>
                 <th>Progress    </th>
-                <th>Remaining Time</th>
+                <th>Status</th>
               </tr>
               {% for o in Order %}
               {% csrf_token %}
@@ -43,9 +44,11 @@
                     <td>{{ o.order_number }}</td>
                     <td>
                       <div class="progress">
-                        <div class="progress-bar" id="myProgressBar{{o.order_id}}" role="progressbar" style="width: 100%;" aria-valuemin="0" aria-valuemax="100">                      </div>
+                        <div class="progress-bar" id="myProgressBar{{o.order_id}}" role="progressbar" style="width: 100%;" aria-valuemin="0" aria-valuemax="100"> 
+                          <span class="progress-bar-text" id="progressText{{o.order_id}}"></span>
+                      </div>
                     </td>
-                    <td id="timeLeft{{o.order_id}}"></td>
+                    <td id="Status{{o.order_id}}"></td>
                   </tr>
 
                 <script>
@@ -80,30 +83,22 @@
 
                   function updateProgressBar{{o.order_id}}(endTime, totalTime) {
                     totalTime *= 1000;
-                    console.log("order number-----" + {{o.order_id}});
-                    console.log("end time-----" + endTime );
-                    console.log("now----" + (Date.now() - 18000000));
-                    console.log("top----" + (endTime - (Date.now() - 18000000)));
-                    console.log("bottom-------" + totalTime);
-                    console.log("percent------"  + (Math.floor(((endTime - (Date.now()- 18000000))  / (totalTime))) * 100));
                     
                     var percent = 100 - Math.floor(((endTime - (Date.now()- 18000000))  / (totalTime)) * 100);
                     var theBar = document.getElementById("myProgressBar{{o.order_id}}");
+                    var statusText = document.getElementById("Status{{o.order_id}}");
                     var newWidth = percent + "%";
-                    theBar.style.width = newWidth;
-
-                    {% comment %} var progressBarText = document.getElementById("myProgressBarText{{o.order_id}}");
-                    if (!progressBarText) {
-                        progressBarText = document.createElement("span");
-                        progressBarText.id = "myProgressBarText{{o.order_id}}";
-                        theBar.parentNode.insertBefore(progressBarText, theBar.nextSibling);
+                    if(percent >= 100) {
+                      statusText.innerHTML = "COMPLETE";
                     }
-                    progressBarText.innerHTML = percent + "%"; {% endcomment %}
+                    theBar.style.width = newWidth;
+                    
+                    
                 }
                 
                   
                   function updateAll{{o.order_id}}() {
-                    updateTimer{{o.order_id}}();                    
+                    //updateTimer{{o.order_id}}();                    
                     updateProgressBar{{o.order_id}}(order{{o.order_id}}.end_time, order{{o.order_id}}.total_time);
                   }
 
