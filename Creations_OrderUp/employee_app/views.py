@@ -25,7 +25,7 @@ def index(request):
 
         if request.method == 'POST': 
             print(request.POST.get('orders'))
-            if request.POST.get('Complete')=='Complete':
+            if request.POST.get('Complete')=='Remove':
                 print("thank god")
                 complete_Order = Order.objects.get(order_number = request.POST.get('orders'))
                 print("got complete order")
