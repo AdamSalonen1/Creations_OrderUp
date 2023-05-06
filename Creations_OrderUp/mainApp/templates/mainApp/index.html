@@ -59,7 +59,7 @@
                 function timeRemaining{{o.order_id}}(endTime){
                     remainingTime = endTime - (Date.now() - 18000000);
                     remainingSeconds = Math.floor(remainingTime / 1000);
-                    if(remainingSeconds <= 0 ){
+                    if(remainingSeconds <= -180 ){
                         csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
                         fetch('{%url 'index'%}', {
                         method: 'POST',
