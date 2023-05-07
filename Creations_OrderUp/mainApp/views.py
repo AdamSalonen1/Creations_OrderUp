@@ -4,7 +4,6 @@ from django.http import HttpResponseRedirect
 
 from employee_app.models import Order
 import json
-import os
 
 
 def index(request):
@@ -21,11 +20,22 @@ def index(request):
         full_order_list = Order.objects.filter(is_complete=False)
 
         print('line before httpresponse redirect')
+
+        print('printing ads', request.POST.get('ads'))
+        if request.POST.get('ads') == 1:
+            print('got ads post')
+            return HttpResponseRedirect('advertisements/')
+
         return render(request, 'mainApp/index.html', context={'Order': full_order_list})
+    
+
+        
+
 
     return render(request, 'mainApp/index.html', context={'Order': full_order_list})
 
 
 def advertisements(request):
     full_order_list = Order.objects.filter(is_complete=False)
+    
     return render(request, 'mainApp/advertisements.html', context={'Order': full_order_list})

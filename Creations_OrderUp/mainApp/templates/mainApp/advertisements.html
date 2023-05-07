@@ -26,22 +26,15 @@
     <p id="counter" hidden>2</p>
 
       {% for o in Order %}
-              {% csrf_token %}
                 {% if not o.isComplete %}
-                <script>
-                  function loadMain() {
-                    var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            document.body.innerHTML = this.responseText;
-                        }
-                    };
-                    xhttp.open("GET", "{% url 'index' %}", true);
-                    xhttp.send();
-                }
+
+                <form action="http://127.0.0.1:8000" method="get" id="myform" name="myform"> 
+                  {% csrf_token %}
+      
+                    <script>
+                        document.forms["myform"].submit();
+                    </script>                
                 
-                
-                </script>
                 {%endif%}
                 {%endfor%}
 <script>
@@ -75,6 +68,13 @@
   setInterval(function(){changeImg()}, 15000)
 </script>
 
+<script>
+  function refreshPage(){
+    console.log("refreshing");
+    location.reload();
+  }
+  setInterval(function() {refreshPage()}, 10000)
+</script>
       
 </body>
 </html>
