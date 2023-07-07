@@ -2,8 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from employee_app.models import Order
 from employee_app.models import Meal
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 from .forms import MealForm
 
 
