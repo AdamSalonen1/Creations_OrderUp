@@ -28,7 +28,7 @@
       {% for o in Order %}
                 {% if not o.isComplete %}
 
-                <form action="http://127.0.0.1:8000" method="get" id="myform" name="myform"> 
+                <form action='{%url 'index'%}' method="get" id="myform" name="myform"> 
                   {% csrf_token %}
       
                     <script>

@@ -40,7 +40,7 @@
         
               <div class="btn-group-vertical ml-4 mt-4" role="group" aria-label="Basic example">
                 <div class="btn-group">
-                    <input type="text" id="number" name="number"><br><br>
+                    <input type="text" id="number" name="number" autofocus="autofocus"><br><br>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('number').value=document.getElementById('number').value + '1';">1</button>
@@ -92,7 +92,7 @@
             const btnStart = document.querySelector(".btn-start");
             const csfr = document.querySelector("[name=csrfmiddlewaretoken]").value;
             btnStart.addEventListener("click", () => {
-              fetch('http://127.0.0.1:8000/', {
+              fetch('{%url 'index'%}', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json; charset=UTF-8',
