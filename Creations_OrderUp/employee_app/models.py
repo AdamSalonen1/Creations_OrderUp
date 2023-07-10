@@ -36,3 +36,12 @@ class Order(models.Model):
 
     def __str__ (self):
         return self.order_id.__str__()
+    
+
+class Login(models.Model):
+    userid = models.BigAutoField(primary_key=True)
+    username = models.CharField(max_length=256)
+    password = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.userid.__str__()
