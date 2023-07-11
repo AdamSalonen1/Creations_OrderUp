@@ -15,7 +15,7 @@ def index(request):
         difference = now.replace(tzinfo=None) - o.est_end_time.replace(tzinfo=None)
 
         #for whatever reason when the difference is negative it shoots the number up to like 86,000 so we just make it fall within a range
-        if difference.seconds > 180 and difference.seconds < 8000:
+        if difference.seconds > 180 and difference.seconds < 80000:
             o.is_complete = True           
             o.save()
 

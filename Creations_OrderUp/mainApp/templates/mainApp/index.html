@@ -111,7 +111,7 @@
             </table>
           {% else %}
 
-          <form action="http://127.0.0.1:8000/advertisements/" method="post" id="myform" name="myform"> 
+          <form action="{%url 'advertisements'%}" method="post" id="myform" name="myform"> 
             {% csrf_token %}
 
               <script>
