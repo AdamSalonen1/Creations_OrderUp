@@ -52,53 +52,45 @@
                   </tr>
 
                 <script>
-                  var order{{o.order_id}} = {
-                    start_time: new Date('{{o.start_time.isoformat}}').getTime(),
+                  var order{{o.order_id}} = 
+                  {
+                    start_time: new Date('{{o.start_time.isoformat}}').getTime(),                    
                     total_time: {{o.meal.cook_time}},
                     end_time: new Date('{{o.est_end_time.isoformat}}').getTime()
-                }
-                
-                
-                function timeRemaining{{o.order_id}}(endTime){
-                    remainingTime = endTime - (Date.now() - 18000000);
-                    remainingSeconds = Math.floor(remainingTime / 1000);
-                    if(remainingSeconds <= -180 ){
-                        csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-                        fetch('{%url 'index'%}', {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json; charset=UTF-8',
-                          'X-CSRFToken': csrftoken
-                        },
-                        body: JSON.stringify({'order_id': {{o.order_id}}})
-                      })
-                      location.reload();
-                    }
-                      
-                    return remainingSeconds
-                }
-                  function updateTimer{{o.order_id}}() {
-                    document.getElementById("timeLeft{{o.order_id}}").innerHTML = timeRemaining{{o.order_id}}(order{{o.order_id}}.end_time) + ' seconds';
                   }
 
-                  function updateProgressBar{{o.order_id}}(endTime, totalTime) {
-                    totalTime *= 1000;
-                    
-                    var percent = 100 - Math.floor(((endTime - (Date.now()- 18000000))  / (totalTime)) * 100);
+                  function updateProgressBar{{o.order_id}}(endTime, totalTime) 
+                  {
+                    var percent = 100 - (Math.floor((endTime - Date.now()) / 1000) / totalTime) * 100;
                     var theBar = document.getElementById("myProgressBar{{o.order_id}}");
                     var statusText = document.getElementById("Status{{o.order_id}}");
                     var newWidth = percent + "%";
-                    if(percent >= 100) {
+                    if(percent >= 100) 
+                    {
                       statusText.innerHTML = "COMPLETE";
                     }
+                    if(percent < 33)
+                    {
+                      theBar.style.backgroundColor = "red";
+                    }
+                    if(percent > 33 && percent < 66)
+                    {
+                      theBar.style.backgroundColor = "DarkOrange"
+                    }
+                    if(percent > 66 && percent < 100)
+                    {
+                      theBar.style.backgroundColor = "#FFC72A"
+                    }
+                    if(percent >= 100)
+                    {
+                      theBar.style.backgroundColor = "Green"
+                    }
                     theBar.style.width = newWidth;
-                    
-                    
-                }
+                  }
                 
                   
-                  function updateAll{{o.order_id}}() {
-                    //updateTimer{{o.order_id}}();                    
+                  function updateAll{{o.order_id}}() 
+                  {                    
                     updateProgressBar{{o.order_id}}(order{{o.order_id}}.end_time, order{{o.order_id}}.total_time);
                   }
 
@@ -132,4 +124,3 @@
 
 </body> 
 </html>
-
