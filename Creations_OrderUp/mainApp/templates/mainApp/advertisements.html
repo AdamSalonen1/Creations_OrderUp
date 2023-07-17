@@ -25,17 +25,18 @@
     <div  id="3" hidden> <img src={%static 'mainApp/images/4057da90-09a4-4036-ac3c-19eab178b470_1920x1080.jpg'%}> </p> </div>
     <p id="counter" hidden>2</p>
 
-      {% for o in Order %}
-                {% if not o.isComplete %}
+                {% for o in Order %}
+                  {% if not o.isComplete %}
 
+                {% csrf_token %}
                 <form action='{%url 'index'%}' method="get" id="myform" name="myform"> 
-                  {% csrf_token %}
+                  
       
-                    <script>
-                        document.forms["myform"].submit();
-                    </script>                
+                <script>
+                    document.forms["myform"].submit();
+                </script>                
                 
-                {%endif%}
+                  {%endif%}
                 {%endfor%}
 <script>
   var one = document.getElementById("1");
@@ -65,7 +66,7 @@
       break;
     }
   }
-  setInterval(function(){changeImg()}, 15000)
+  setInterval(function(){changeImg()}, 3333)
 </script>
 
 <script>

@@ -61,7 +61,10 @@
 
                   function updateProgressBar{{o.order_id}}(endTime, totalTime) 
                   {
+                    console.log('endTime = ' + endTime)
+                    console.log('Date.now = ' + Date.now())
                     var percent = 100 - (Math.floor((endTime - Date.now()) / 1000) / totalTime) * 100;
+                    console.log('percent = ' + percent)
                     var theBar = document.getElementById("myProgressBar{{o.order_id}}");
                     var statusText = document.getElementById("Status{{o.order_id}}");
                     var newWidth = percent + "%";
@@ -117,7 +120,7 @@
     <script>
       function refreshPage(){
         console.log("refreshing");
-        location.reload();
+        //location.reload();
       }
       setInterval(function() {refreshPage()}, 10000)
     </script>
