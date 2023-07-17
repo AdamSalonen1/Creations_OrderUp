@@ -61,34 +61,47 @@
 
                   function updateProgressBar{{o.order_id}}(endTime, totalTime) 
                   {
-                    console.log('endTime = ' + endTime)
-                    console.log('Date.now = ' + Date.now())
                     var percent = 100 - (Math.floor((endTime - Date.now()) / 1000) / totalTime) * 100;
-                    console.log('percent = ' + percent)
                     var theBar = document.getElementById("myProgressBar{{o.order_id}}");
                     var statusText = document.getElementById("Status{{o.order_id}}");
                     var newWidth = percent + "%";
-                    if(percent >= 100) 
+                    
+                    var colorPercent = percent * 2.55;
+                    var descColorPercent = (percent - 50) * 2.55;
+
+                    let red = 255;
+                    let green = 0;
+                    
+                    if(percent <= 50)
                     {
-                      statusText.innerHTML = "COMPLETE";
+                      green = Math.floor(green + colorPercent*2);
                     }
-                    if(percent < 33)
+                    else if(percent <= 100)
                     {
-                      theBar.style.backgroundColor = "red";
+                      green = 255;
+                      red = Math.floor(red - descColorPercent*2);
                     }
-                    if(percent > 33 && percent < 66)
+                    else
                     {
-                      theBar.style.backgroundColor = "DarkOrange"
+                      green = 255;
+                      red = 0;
                     }
-                    if(percent > 66 && percent < 100)
-                    {
-                      theBar.style.backgroundColor = "#FFC72A"
-                    }
+
+                    var redString = red.toString();
+                    var greenString = green.toString();
+
+                    var rgbString = 'rgb(';
+                    rgbString = rgbString.concat(redString, ',');
+                    rgbString = rgbString.concat(greenString, ',00)');
+
+                    theBar.style.backgroundColor = rgbString;
+
+                    theBar.style.width = newWidth;
+
                     if(percent >= 100)
                     {
-                      theBar.style.backgroundColor = "Green"
+                      statusText.innerHTML = "Complete";
                     }
-                    theBar.style.width = newWidth;
                   }
                 
                   
@@ -120,7 +133,7 @@
     <script>
       function refreshPage(){
         console.log("refreshing");
-        //location.reload();
+        location.reload();
       }
       setInterval(function() {refreshPage()}, 10000)
     </script>
