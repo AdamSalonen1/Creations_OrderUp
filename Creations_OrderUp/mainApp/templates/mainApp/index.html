@@ -66,10 +66,10 @@
                     var statusText = document.getElementById("Status{{o.order_id}}");
                     var newWidth = percent + "%";
                     
-                    var colorPercent = percent * 2.55;
-                    var descColorPercent = (percent - 50) * 2.55;
+                    var colorPercent = percent * 2.2;
+                    var descColorPercent = (percent - 50) * 2.2;
 
-                    let red = 255;
+                    let red = 220;
                     let green = 0;
                     
                     if(percent <= 50)
@@ -78,12 +78,12 @@
                     }
                     else if(percent <= 100)
                     {
-                      green = 255;
+                      green = 220;
                       red = Math.floor(red - descColorPercent*2);
                     }
                     else
                     {
-                      green = 255;
+                      green = 220;
                       red = 0;
                     }
 
@@ -100,7 +100,7 @@
 
                     if(percent >= 100)
                     {
-                      statusText.innerHTML = "Complete";
+                      statusText.innerHTML = "COMPLETE";
                     }
                   }
                 
