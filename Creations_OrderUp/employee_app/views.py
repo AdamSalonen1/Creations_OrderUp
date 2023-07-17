@@ -6,6 +6,7 @@ from mainApp import views
 from datetime import datetime, timedelta
 from .forms import MealForm
 import time
+from django.utils import timezone
 
 authenticated = False
 def index(request):
@@ -43,7 +44,7 @@ def index(request):
             
             else:
                 selectedMeal = Meal.objects.get(meal_name=request.POST.get('meal_name').__str__())
-                now = datetime.now()
+                now = timezone.now()
                 order=Order()
                 order.order_number = request.POST.get('number')
                 order.start_time = now.strftime("%Y-%m-%d %H:%M:%S")
