@@ -26,15 +26,11 @@
     <p id="counter" hidden>2</p>
 
                 {% for o in Order %}
-                  {% if not o.isComplete %}
-
-                {% csrf_token %}
-                <form action='{%url 'index'%}' method="get" id="myform" name="myform"> 
-                  
-      
-                <script>
-                    document.forms["myform"].submit();
-                </script>                
+                  {% if not o.isComplete %}               
+        
+                  <script>
+                      window.location.replace('{%url 'index'%}');
+                  </script>
                 
                   {%endif%}
                 {%endfor%}

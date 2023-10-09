@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&tfkv^j_1fyg2==iv6bil7s8y#p83=9z#@=lqe2n#=61fuq4q4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['createsorderup-env.eba-zripkss6.us-east-2.elasticbeanstalk.com', '127.0.0.1']
+ALLOWED_HOSTS = ['createsorderup-env.eba-zripkss6.us-east-2.elasticbeanstalk.com', '127.0.0.1', 'creationsorderup.azurewebsites.net']
 
 
 # Application definition
@@ -127,3 +127,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = ['https://creationsorderup.azurewebsites.net','https://127.0.0.1']

@@ -90,13 +90,13 @@
           
           <script>
             const btnStart = document.querySelector(".btn-start");
-            const csfr = document.querySelector("[name=csrfmiddlewaretoken]").value;
+            const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
             btnStart.addEventListener("click", () => {
               fetch('{%url 'index'%}', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json; charset=UTF-8',
-                  'X-CSRFToken': csfr
+                  'X-CSRFToken': csrf
                 },
                 body: JSON.stringify({'order_id': 1})
               });

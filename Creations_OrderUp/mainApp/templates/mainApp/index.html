@@ -119,12 +119,10 @@
             </table>
           {% else %}
 
-          <form action="{%url 'advertisements'%}" method="post" id="myform" name="myform"> 
-            {% csrf_token %}
-
               <script>
-                  document.forms["myform"].submit();              
+                  window.location.replace("{%url 'advertisements'%}");             
               </script>
+              
           {% endif %}
 
       </div>
